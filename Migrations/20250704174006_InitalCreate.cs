@@ -14,7 +14,7 @@ namespace LeagueOfLegendsCharachters.Migrations
                 name: "Charachters",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RolePosition = table.Column<int>(type: "int", maxLength: 10, nullable: false),
                     BlueEssence = table.Column<int>(type: "int", nullable: false)
                 },
@@ -35,7 +35,7 @@ namespace LeagueOfLegendsCharachters.Migrations
                     MagicResist = table.Column<int>(type: "int", nullable: false),
                     MovementSpeed = table.Column<int>(type: "int", nullable: false),
                     AttackRange = table.Column<int>(type: "int", nullable: false),
-                    CharachterName = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    CharachterName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {

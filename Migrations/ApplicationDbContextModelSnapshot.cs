@@ -24,8 +24,7 @@ namespace LeagueOfLegendsCharachters.Migrations
             modelBuilder.Entity("LeagueOfLegendsCharachters.Models.Charachter", b =>
                 {
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("BlueEssence")
                         .HasColumnType("int");
@@ -55,7 +54,7 @@ namespace LeagueOfLegendsCharachters.Migrations
 
                     b.Property<string>("CharachterName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Damage")
                         .HasColumnType("int");

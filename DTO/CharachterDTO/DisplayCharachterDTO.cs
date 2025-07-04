@@ -6,7 +6,7 @@ namespace LeagueOfLegendsCharachters.DTO.CharachterDTO
 {
     public class DisplayCharachterDTO
     {
-        public required string Name { get; set; }
+        public string Name { get; set; } = null!;
         public required RolePositionEnum RolePosition { get; set; }
         public required int BlueEssence { get; set; }
         //Relationship

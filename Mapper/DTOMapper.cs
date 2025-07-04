@@ -5,18 +5,6 @@ namespace LeagueOfLegendsCharachters.Mapper
 {
     public static class DTOMapper
     {
-        public static DisplayStatusDTO ToDisplayStatusDTO(this Status model)
-        {
-            return new DisplayStatusDTO
-            {
-                Health = model.Health,
-                Armor = model.Armor,
-                AttackRange = model.AttackRange,
-                Damage = model.Damage,
-                MagicResist = model.MagicResist,
-                MovementSpeed = model.MovementSpeed
-            };
-        }
         public static DisplayCharachterDTO DisplayCharachterDTO(this Charachter model)
         {
             return new DisplayCharachterDTO
@@ -33,6 +21,19 @@ namespace LeagueOfLegendsCharachters.Mapper
                     MagicResist = model.Status.MagicResist,
                     MovementSpeed = model.Status.MovementSpeed
                 }
+            };
+        }
+        public static DisplayStatusDTO ToDisplayStatusDTO(this Status model)
+        {
+            return new DisplayStatusDTO
+            {
+                Health = model.Health,
+                Armor = model.Armor,
+                AttackRange = model.AttackRange,
+                Damage = model.Damage,
+                MagicResist = model.MagicResist,
+                MovementSpeed = model.MovementSpeed,
+                CharachterName = model.CharachterName
             };
         }
         public static Charachter PostCharachterDTO(this PostCharachterDTO model)

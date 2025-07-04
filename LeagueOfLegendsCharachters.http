@@ -1,6 +1,26 @@
-@LeagueOfLegendsCharachters_HostAddress = http://localhost:5013
+@LeagueOfLegendsCharachters_HostAddress = https://localhost:7100
 
-GET {{LeagueOfLegendsCharachters_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{LeagueOfLegendsCharachters_HostAddress}}/Charachter/{urgot}
+
+###
+
+@name=string
+PUT {{LeagueOfLegendsCharachters_HostAddress}}/Charachter/{{name}}
+Content-Type: application/json
+
+{
+    "name": "Irelia",
+    "rolePosition": "Mid",
+    "blueEssence": 2400,
+    "status": {
+        "CharachterName" : "Irelia"
+        "health": 630,
+        "damage": 65,
+        "armor": 36,
+        "magicResist": 30,
+        "movementSpeed": 335,
+        "attackRange": 200
+    }
+}
 
 ###

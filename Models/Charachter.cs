@@ -9,9 +9,7 @@ namespace LeagueOfLegendsCharachters.Models
     public class Charachter
     {
         [Key]
-        [Required]
-        [MaxLength(50)]
-        public required string Name { get; set; }
+        public string Name { get; set; } = null!;
         [MaxLength(10)]
         [Required]
         public required RolePositionEnum RolePosition { get; set; }

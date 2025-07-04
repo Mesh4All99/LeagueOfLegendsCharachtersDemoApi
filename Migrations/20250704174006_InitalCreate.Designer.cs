@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeagueOfLegendsCharachters.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250704152857_InitalCreate")]
+    [Migration("20250704174006_InitalCreate")]
     partial class InitalCreate
     {
         /// <inheritdoc />
@@ -27,8 +27,7 @@ namespace LeagueOfLegendsCharachters.Migrations
             modelBuilder.Entity("LeagueOfLegendsCharachters.Models.Charachter", b =>
                 {
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("BlueEssence")
                         .HasColumnType("int");
@@ -58,7 +57,7 @@ namespace LeagueOfLegendsCharachters.Migrations
 
                     b.Property<string>("CharachterName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Damage")
                         .HasColumnType("int");
