@@ -30,7 +30,7 @@ namespace LeagueOfLegendsCharachters.Controllers
         [HttpGet("{name}")]
         public async Task<IActionResult> GetById(string name)
         {
-            var data = await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(x => x.Name == name);
+            var data = await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
             if (data == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace LeagueOfLegendsCharachters.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data =await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(n => n.Name == name);
+                var data =await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(n => n.Name.ToLower() == name.ToLower());
                 if (data == null)
                 {
                     return NotFound();
@@ -74,6 +74,20 @@ namespace LeagueOfLegendsCharachters.Controllers
                 _context.Charachters.Update(data);
                 await _context.SaveChangesAsync();
             }
+            return NoContent();
+        }
+        //
+        //
+        [HttpDelete("{name}")]
+        public async Task<IActionResult> Delete(string name)
+        {
+            var data = await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(o=>o.Name.ToLower() == name.ToLower());
+            if (data == null)
+            {
+                return NotFound();
+            }
+            _context.Charachters.Remove(data);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
     }
