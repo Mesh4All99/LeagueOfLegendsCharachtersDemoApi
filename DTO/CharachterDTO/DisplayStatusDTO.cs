@@ -10,6 +10,5 @@ namespace LeagueOfLegendsCharachters.DTO.CharachterDTO
         public int MagicResist { get; set; }
         public int MovementSpeed { get; set; }
         public int AttackRange { get; set; }
-        public string CharachterName { get; set; } = null!;
     }
 }

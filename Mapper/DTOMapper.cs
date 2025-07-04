@@ -33,7 +33,6 @@ namespace LeagueOfLegendsCharachters.Mapper
                 Damage = model.Damage,
                 MagicResist = model.MagicResist,
                 MovementSpeed = model.MovementSpeed,
-                CharachterName = model.CharachterName
             };
         }
         public static Charachter PostCharachterDTO(this PostCharachterDTO model)
