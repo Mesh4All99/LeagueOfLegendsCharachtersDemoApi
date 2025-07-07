@@ -2,9 +2,11 @@ using LeagueOfLegendsCharachters.Data;
 using LeagueOfLegendsCharachters.Mapper;
 using LeagueOfLegendsCharachters.Models;
 using LeagueOfLegendsCharachters.Models.Enums;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,34 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connection);
 });
 
+builder.Services.AddIdentityCore<AppUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(option =>
+    {
+        var secret = builder.Configuration["JwtConfig:Secret"];
+        var issuer = builder.Configuration["JwtConfig:ValidIssuer"];
+        var audience = builder.Configuration["JwtConfig:ValidAudiences"];
+        if (secret is null || issuer is null || audience is null)
+        {
+            throw new ApplicationException("JWT is not configured in settings");
+        }
+        // up is optional
+        option.SaveToken = true;
+        option.RequireHttpsMetadata = false;
+        option.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtConfig:ValidIssuer"],
+            ValidAudience = builder.Configuration["JwtConfig:ValidAudiences"],
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret))
+        };
+    });
+
 builder.Services.AddControllers().AddJsonOptions(o =>
 {
     o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -25,7 +55,6 @@ builder.Services.AddControllers().AddJsonOptions(o =>
     o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -93,7 +122,7 @@ using (var _scope = app.Services.CreateScope())
     }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

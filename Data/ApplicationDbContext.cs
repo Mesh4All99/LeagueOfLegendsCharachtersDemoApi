@@ -1,18 +1,20 @@
 ﻿using LeagueOfLegendsCharachters.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LeagueOfLegendsCharachters.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Charachter>()
+            base.OnModelCreating(builder);
+            builder.Entity<Charachter>()
                 .HasOne(o => o.Status)
                 .WithOne(o => o.Charachter)
-                .HasForeignKey<Status>(o=>o.CharachterName);
+                .HasForeignKey<Status>(o => o.CharachterName);
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         { 
