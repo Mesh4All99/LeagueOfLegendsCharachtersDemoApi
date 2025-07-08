@@ -2,6 +2,7 @@
 using LeagueOfLegendsCharachters.DTO.CharachterDTO;
 using LeagueOfLegendsCharachters.Mapper;
 using LeagueOfLegendsCharachters.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.Xml;
@@ -38,6 +39,7 @@ namespace LeagueOfLegendsCharachters.Controllers
             return Ok(data.DisplayCharachterDTO());    
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] PostCharachterDTO model)
         {
             if (ModelState.IsValid)
@@ -50,6 +52,7 @@ namespace LeagueOfLegendsCharachters.Controllers
         //
         //
         [HttpPut("{name}")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] PutCharachterDTO model, string name)
         {
             if (ModelState.IsValid)
@@ -79,6 +82,7 @@ namespace LeagueOfLegendsCharachters.Controllers
         //
         //
         [HttpDelete("{name}")]
+        [Authorize]
         public async Task<IActionResult> Delete(string name)
         {
             var data = await _context.Charachters.Include(o => o.Status).FirstOrDefaultAsync(o=>o.Name.ToLower() == name.ToLower());

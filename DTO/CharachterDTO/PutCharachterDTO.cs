@@ -8,6 +8,6 @@ namespace LeagueOfLegendsCharachters.DTO.CharachterDTO
         public required RolePositionEnum RolePosition { get; set; }
         public required int BlueEssence { get; set; }
         //Relationship
-        public PutStatusDTO? Status { get; set; }
+        public PutStatusDTO Status { get; set; } = null!;
     }
 }
