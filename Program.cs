@@ -59,9 +59,35 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var service = scope.ServiceProvider;
+    var roleManager =  service.GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (! await roleManager.RoleExistsAsync(AppRoles.Administrator))
+    {
+        await roleManager.CreateAsync(new IdentityRole(AppRoles.Administrator));
+    }
+
+    if (! await roleManager.RoleExistsAsync(AppRoles.VipUser))
+    {
+        await roleManager.CreateAsync(new IdentityRole(AppRoles.VipUser));
+    }
+
+    if (! await roleManager.RoleExistsAsync(AppRoles.User))
+    {
+        await roleManager.CreateAsync(new IdentityRole(AppRoles.User));
+    }
+}
+
 using (var _scope = app.Services.CreateScope())
 {
     var _context = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (_context.Database.GetPendingMigrations().Any())
+    {
+        _context.Database.Migrate();
+    }
+    //
     if (!_context.Charachters.Any())
     {
         _context.Charachters.AddRange(
@@ -77,7 +103,7 @@ using (var _scope = app.Services.CreateScope())
                 Health = 665,
                 AttackRange = 550,
                 MagicResist = 30,
-                MovementSpeed = 330, 
+                MovementSpeed = 330,
             }
         },
         new Charachter()
