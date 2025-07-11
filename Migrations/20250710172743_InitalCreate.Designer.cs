@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeagueOfLegendsCharachters.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250707153801_InitalIdentityAdd")]
-    partial class InitalIdentityAdd
+    [Migration("20250710172743_InitalCreate")]
+    partial class InitalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -43,7 +43,8 @@ namespace LeagueOfLegendsCharachters.Controllers
                 // Try to save the user
                 var result = await _userManager.CreateAsync(user, model.Password);
                 // If the user is successfully created, return Ok 
-                if (result.Succeeded)
+                var RoleResult = await _userManager.AddToRoleAsync(user,AppRoles.User);
+                if (result.Succeeded && RoleResult.Succeeded)
                 {
                     var token = GenerateToken(model.UserName);
                     return Ok(new { token });
